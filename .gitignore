@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Group Assignment 0/Group Assignment 0.vcxproj.filters
+/Group Assignment 0/Group Assignment 0.vcxproj
+/Group Assignment 0/Group Assignment 0.sln
+/Group Assignment 0/.vs/Group Assignment 0/v15/ipch/AutoPCH/465297ab17db1168/MAINCPP.ipch
+/Group Assignment 0/.vs/Group Assignment 0/v15/Browse.VC.opendb
+/Group Assignment 0/.vs/Group Assignment 0/v15/Browse.VC.db
+/Group Assignment 0/.vs/Group Assignment 0/v15/.suo

@@ -4,7 +4,7 @@
 	by the assignment. We should all be able to use GitHub to individually
 	edit certain functions, which we will then push to a final version that
 	we can all use and turn in together.
-										-Alex Andrews
+	-Alex Andrews
 */
 
 #include <iostream>
