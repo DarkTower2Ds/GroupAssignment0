@@ -38,7 +38,7 @@ a. This function should read in the grades from your file, and store it in a
 */
 void readGrades(string fileName, int numberOfExams, int numOfStudents)
 {
-
+    cout << "This is an example";
 }
 
 /*
