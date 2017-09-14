@@ -15,6 +15,12 @@ int examScores[10][5]; //Global variable double-dimensional array for the grades
 
 int main()
 {
+	//Declare and Initialize variables
+	int numberOfExams = 5;
+	int numOfStudents = 10;
+	double weights[5] = { 0 };
+	double examAvgs[5] = { 0 };
+	double studentGrades[10] = { 0 }; //I believe that studentAvgs and studentGrades on the edited assignment refer to one array, so that's what this is
 
 	return 0;
 }
@@ -30,10 +36,10 @@ void readGrades(string fileName, int numberOfExams, int numOfStudents)
 
 /*
 a. Inside this function, you should accept user input from the keyboard (use cin) in order to
-fill the weights[] array with the relative weight of each exam (you may use any values you
-like, but they should all add up to 1).
+   fill the weights[] array with the relative weight of each exam (you may use any values you
+   like, but they should all add up to 1).
 b. Note: You are passing in weights[] by reference​, and therefore any operations performed
-on the array will modify whichever array is initially passed into it.*/
+   on the array will modify whichever array is initially passed into it.*/
 void getWeights(double weights[], int numOfExams)
 {
 
@@ -41,9 +47,9 @@ void getWeights(double weights[], int numOfExams)
 
 /*
 a. This function should fill the array examAvgs with the average grade scored by all
-students on each exam.
+   students on each exam.
 b. Note: Again, you are passing in examAvgs[] by reference​, so any modifications inside
-the function will modify the array that is initially passed into the function
+   the function will modify the array that is initially passed into the function
 */
 void getAvgsOfExams(double examAvgs[], int numOfExams, int numOfStudents)
 {
@@ -60,8 +66,8 @@ void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, i
 
 /*
 a. Writing to a file titled “finalgrades.txt”​, the student’s grades should be outputted, with
-each row followed by its final average, and each exam’s overall average at the bottom of
-their corresponding columns.
+   each row followed by its final average, and each exam’s overall average at the bottom of
+   their corresponding columns.
 */
 void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams, int numOfStudents)
 {
