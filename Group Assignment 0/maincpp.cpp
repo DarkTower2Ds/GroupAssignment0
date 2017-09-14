@@ -11,6 +11,13 @@
 #include <fstream>
 using namespace std;
 
+//Prototypes of functions
+void readGrades(string fileName, int numberOfExams, int numOfStudents);
+void getWeights(double weights[], int numOfExams);
+void getAvgsOfExams(double examAvgs[], int numOfExams, int numOfStudents);
+void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, int numOfStudents);
+void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams, int numOfStudents);
+
 int examScores[10][5]; //Global variable double-dimensional array for the grades to be read from the file
 
 int main()
@@ -62,6 +69,8 @@ a. This function should fill studentAvgs[] with the weighted averages of their t
 */
 void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, int numOfStudents)
 {
+	//Nested for-loops iterate through examScores by student and exam
+	//Within the for-loops, the average of each student is calculated using the appropriate weight
 	for (int student = 0; student < numOfStudents; student++)
 		for (int exam = 0; exam < numOfExams; exam++)
 			studentAvgs[student] += (examScores[student][exam] * weights[exam]);
