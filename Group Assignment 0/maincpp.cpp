@@ -29,6 +29,13 @@ int main()
 	double examAvgs[5] = { 0 };
 	double studentGrades[10] = { 0 }; //I believe that studentAvgs and studentGrades on the edited assignment refer to one array, so that's what this is
 
+	for (int i = 0; i < 10; i++)
+		for (int j = 0; j < 5; j++)
+			examScores[i][j] = 0;
+	getAvgsOfStudents(studentGrades, weights, numberOfExams, numOfStudents);
+	writeFinalGrades(examAvgs, studentGrades, numberOfExams, numOfStudents);
+
+	system("pause");
 	return 0;
 }
 
@@ -84,11 +91,12 @@ a. Writing to a file titled “finalgrades.txt”​, the student’s grades sho
 void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams, int numOfStudents)
 {
 	ofstream finalGrades; //output stream for file containing the final grades
-	finalGrades.open("D:\Comp Sci\finalgrades.txt"); //This path is specific to MY desktop computer and WILL NOT work unless you have a D: drive with a Comp Sci folder on your computer as well. Be sure to change this while testing.
+	finalGrades.open("D:\\Comp Sci\\finalgrades.txt"); //This path is specific to MY desktop computer and WILL NOT work unless you have a D: drive with a Comp Sci folder on your computer as well. Be sure to change this while testing.
 	//Check if there was an error creating finalgrades.txt and exit if an error occured
 	if (finalGrades.fail())
 	{
-		cout << "Error: failed to create finalgrades.txt";
+		cout << "Error: failed to create finalgrades.txt" << endl;
+		system("pause");
 		exit(1);
 	}
 
@@ -101,7 +109,7 @@ void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams,
 	for (int student = 0; student < numOfStudents; student++)
 	{
 		//for-loop iterates through the columns of exams
-		for (int exam; exam < numOfExams; exam++)
+		for (int exam = 0; exam < numOfExams; exam++)
 			finalGrades << examScores[student][exam] << "\t"; //Ouputs the scores of each exam into finalgrades.txt
 
 		//Ouputs the students average after their exam scores in finalgrades.txt
@@ -109,11 +117,11 @@ void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams,
 	}
 
 	//This is another formatting thing to separate the students' grades and averages from the averages on the individual exams. This line can be removed
-	finalGrades << "============================================================" << endl;
+	finalGrades << "===============================================" << endl;
 	
 	//Outputs the averages of each exam  in finalgrades.txt
 	for (int exam = 0; exam < numOfExams; exam++)
-		finalGrades << examAvgs[exam];
+		finalGrades << examAvgs[exam] << "\t";
 
 	//Close finalgrades.txt
 	finalGrades.close();
