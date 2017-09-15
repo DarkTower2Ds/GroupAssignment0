@@ -68,6 +68,14 @@ b. Note: Again, you are passing in examAvgs[] by reference​, so any modificati
 */
 void getAvgsOfExams(double examAvgs[], int numOfExams, int numOfStudents)
 {
+	for (int student = 0; student < numOfStudents; student++)
+	{
+		double sum = 0;
+		for (int exam = 0; exam < numOfExams; exam++)
+			sum = sum + examScores[student][exam];
+		examAvgs[student] = sum / numOfStudents;
+	}
+		
 
 }
 
