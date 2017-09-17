@@ -7,6 +7,12 @@
 															-Alex Andrews
 */
 
+/*
+	Alexander Andrews	60%
+	Cosmo Jun			20%
+	Pichvyda Tuy		20%
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -29,8 +35,9 @@ int main()
 	double weights[5];
 	double examAvgs[5];
 	double studentGrades[10]; //I believe that studentAvgs and studentGrades on the edited assignment refer to one array, so that's what this is
-	string fileName;
+	string fileName; //String to store any filepath that the user inputs
 
+	//Function
 	cout << "Enter the entire path of the file containing the raw exam scores, using two backslashes (\\\\) instead of one (\\): ";
 	cin >> fileName;
 	cout << "You entered " << fileName << endl;
@@ -40,8 +47,20 @@ int main()
 	getAvgsOfExams(examAvgs, numberOfExams, numOfStudents);
 	writeFinalGrades(examAvgs, studentGrades, numberOfExams, numOfStudents);
 
+	/*
+		A BRIEF NOTE TO THE INSTRUCTOR/GRADER
+		All of the code functions properly in terms of taking input from a file and creating a finalgrades.txt with the correct information.
+		However, for a reason unknown to me an exception is thrown at AFTER ALL OF THE FUNCTIONS HAVE BEEN PROPERLY EXECUTED saying:
+		"Run-Time Check Failure #2 - Stack around the variable 'examAvgs' was corrupted." (sometimes it says 'weights' instead of 'examAvgs')
+		After spending time on Google and digging through what code is here, I could find nothing that would cause this exception, nor a way
+		to prevent the exception from being thrown.
+
+		I just want to point out that the input and output of the program appear to be unaffected by whatever is causing this exception.
+		
+		Thank you,
+		Alex Andrews
+	*/
 	system("pause");
-//>>>>>>> master
 	return 0;
 }
 
@@ -52,6 +71,12 @@ a. This function should read in the grades from your file, and store it in a
 void readGrades(string fileName, int numberOfExams, int numOfStudents) {
     ifstream fileInput;
     fileInput.open(fileName); //This should use the string fileName that was taken in the arguements. - Alex A.
+	if (fileInput.fail()) //This needs to occur everytime after attempting to open a file. - Alex A.
+	{
+		cout << "Error: failed open " << fileName << endl;
+		system("pause");
+		exit(1);
+	}
     for (int i = 0; i < numOfStudents; i++) {
         for (int j = 0; j < numberOfExams; j++) {
             fileInput >> examScores[i][j];
@@ -60,7 +85,8 @@ void readGrades(string fileName, int numberOfExams, int numOfStudents) {
         }
         cout << endl;
     }
-    
+
+	fileInput.close();
 }
 
 /*
@@ -79,6 +105,15 @@ void getWeights(double weights[],int numberOfExams){ //Since we aren't actually 
         cin>>weights[i];
 		cout << endl; //Alex A.
     }
+
+	double sum = 0.0;
+	for (int i = 0; i < numberOfExams; i++)
+		sum += weights[i];
+	if (sum != 1)
+	{
+		cout << "The weights you entered do not add up to 1 (one). The weights must add up to 1 (one)." << endl;
+		getWeights(weights, numberOfExams);
+	}
 }
 
 /*
@@ -120,6 +155,7 @@ void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, i
 	}
 }
 
+//Print
 /*
 a. Writing to a file titled “finalgrades.txt”​, the student’s grades should be outputted, with
    each row followed by its final average, and each exam’s overall average at the bottom of
@@ -158,7 +194,7 @@ void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams,
 	}
 
 	//This is another formatting thing to separate the students' grades and averages from the averages on the individual exams. This line can be removed
-	finalGrades << "===============================================" << endl;
+	finalGrades << "=============================================" << endl;
 	
 	//Outputs the averages of each exam  in finalgrades.txt
 	for (int exam = 0; exam < numOfExams; exam++)
