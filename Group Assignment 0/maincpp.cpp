@@ -26,14 +26,18 @@ int main()
 	//Declare and Initialize variables
 	int numberOfExams = 5;
 	int numOfStudents = 10;
-	double weights[5] = { 0 };
-	double examAvgs[5] = { 0 };
-	double studentGrades[10] = { 0 }; //I believe that studentAvgs and studentGrades on the edited assignment refer to one array, so that's what this is
+	double weights[5];
+	double examAvgs[5];
+	double studentGrades[10]; //I believe that studentAvgs and studentGrades on the edited assignment refer to one array, so that's what this is
+	string fileName;
 
-	for (int i = 0; i < 10; i++)
-		for (int j = 0; j < 5; j++)
-			examScores[i][j] = 0;
+	cout << "Enter the entire path of the file containing the raw exam scores, using two backslashes (\\\\) instead of one (\\): ";
+	cin >> fileName;
+	cout << "You entered " << fileName << endl;
+	readGrades(fileName, numberOfExams, numOfStudents);
+	getWeights(weights, numberOfExams);
 	getAvgsOfStudents(studentGrades, weights, numberOfExams, numOfStudents);
+	getAvgsOfExams(examAvgs, numberOfExams, numOfStudents);
 	writeFinalGrades(examAvgs, studentGrades, numberOfExams, numOfStudents);
 
 	system("pause");
@@ -47,7 +51,7 @@ a. This function should read in the grades from your file, and store it in a
 */
 void readGrades(string fileName, int numberOfExams, int numOfStudents) {
     ifstream fileInput;
-    fileInput.open("/Users/macbook/Desktop/student grades.txt");
+    fileInput.open(fileName); //This should use the string fileName that was taken in the arguements. - Alex A.
     for (int i = 0; i < numOfStudents; i++) {
         for (int j = 0; j < numberOfExams; j++) {
             fileInput >> examScores[i][j];
@@ -66,11 +70,14 @@ a. Inside this function, you should accept user input from the keyboard (use cin
 b. Note: You are passing in weights[] by reference​, and therefore any operations performed
    on the array will modify whichever array is initially passed into it.
 */
-void getWeights(double weights[],int &numberOfExams){
-    cout<<"Enter number of exams: ";
-    cin>>numberOfExams;
+void getWeights(double weights[],int numberOfExams){ //Since we aren't actually taking user input here, I got rid of the & before numberOfExams - Alex A.
+    //cout<<"Enter number of exams: ";
+    //cin>>numberOfExams;				This line of code and the one above it are not needed. They are no longer a requirement of the revised project - Alex A.
+	//I'm going to add in the cout we need - Alex A.
     for (int i=0; i<numberOfExams; i++){
+		cout << "Enter the weight of exam " << i << ": ";
         cin>>weights[i];
+		cout << endl; //Alex A.
     }
 }
 
@@ -80,14 +87,16 @@ a. This function should fill the array examAvgs with the average grade scored by
 b. Note: Again, you are passing in examAvgs[] by reference​, so any modifications inside
    the function will modify the array that is initially passed into the function
 */
-void getAvgsOfExams(double examAvgs[], int numOfExams, int numOfStudents)
+void getAvgsOfExams(double examAvgs[], int numOfExams, int numOfStudents) //Whoever wrote this (Cosmo?) iterated through the array by row instead of column, but still divided by the total number of students, resulting in super low exam averages. I fixed it, though. -Alex A.
 {
-	for (int student = 0; student < numOfStudents; student++)
+	for (int exam = 0; exam < numOfStudents; exam++)
 	{
-		double sum = 0;
-		for (int exam = 0; exam < numOfExams; exam++)
-			sum = sum + examScores[student][exam];
-		examAvgs[student] = sum / numOfStudents;
+		double sum = 0.0;
+		for (int student = 0; student < numOfStudents; student++)
+		{
+			sum += examScores[student][exam];
+		}
+		examAvgs[exam] = sum / numOfStudents;
 	}
 		
 
@@ -99,9 +108,16 @@ a. This function should fill studentAvgs[] with the weighted averages of their t
 void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, int numOfStudents) {
 	//Nested for-loops iterate through examScores by student and exam
 	//Within the for-loops, the average of each student is calculated using the appropriate weight
+	cout << endl;
 	for (int student = 0; student < numOfStudents; student++)
+	{
+		double studentAvg = 0.0;
 		for (int exam = 0; exam < numOfExams; exam++)
-			studentAvgs[student] += (examScores[student][exam] * weights[exam]);
+		{
+			studentAvg += (examScores[student][exam] * weights[exam]);
+		}
+		studentAvgs[student] = studentAvg;
+	}
 }
 
 /*
@@ -111,8 +127,12 @@ a. Writing to a file titled “finalgrades.txt”​, the student’s grades sho
 */
 void writeFinalGrades(double examAvgs[], double studentGrades[], int numOfExams, int numOfStudents)
 {
+	string fileOutputPath; //The filepath of the FOLDER in which finalgrades.txt will be placed
+	cout << "Enter the path to the FOLDER where you would like to store finalgrades.txt, including two backslashes (\\\\) instead of one (\\): ";
+	cin >> fileOutputPath;
+	fileOutputPath += "\\finalgrades.txt"; //Append "finalgrades.txt" to the end of the filepath provided
 	ofstream finalGrades; //output stream for file containing the final grades
-	finalGrades.open("D:\\Comp Sci\\finalgrades.txt"); //This path is specific to MY desktop computer and WILL NOT work unless you have a D: drive with a Comp Sci folder on your computer as well. Be sure to change this while testing.
+	finalGrades.open(fileOutputPath);
 	//Check if there was an error creating finalgrades.txt and exit if an error occured
 	if (finalGrades.fail())
 	{
