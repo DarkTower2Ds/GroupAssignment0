@@ -8,9 +8,9 @@
 */
 
 /*
-	Alexander Andrews	60%
-	Cosmo Jun			20%
-	Pichvyda Tuy		20%
+	Alexander Andrews	%
+	Cosmo Jun			%
+	Pichvyda Tuy		%
 */
 
 #include <iostream>
